@@ -45,8 +45,7 @@ class Character {
     }
 
     public String Info() {
-        return STR."\{name}: \{health} HP, \{attackPower} AP.";
-    }
+        return String.format("%s: %.2f HP, %.2f AP.", name, health, attackPower);    }
 
     public String getName() {
         return name;
@@ -91,7 +90,7 @@ class Item{
     }
 
     public String Info() {
-        return STR."\{name}: Heals \{healingPower} HP.";
+        return String.format("%s: Heals %d HP.", name, healingPower);
     }
 
     public String getName() {
