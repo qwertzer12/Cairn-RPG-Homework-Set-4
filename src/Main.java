@@ -141,8 +141,18 @@ public class Main {
                 System.out.println("2. Run Away");
                 System.out.println("3. Check Info");
                 System.out.println("4. Heal");
+                System.out.println("0. Exit Game");
 
-                int choice = scanner.nextInt();
+                int choice = -1;
+                boolean cValid = false;
+                while (!cValid) {
+                    try {
+                        choice = Integer.parseInt(scanner.nextLine());
+                        cValid = true;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please input an integer. Try Again.");
+                    }
+                }
 
                 switch (choice) {
                     case 1:
@@ -164,6 +174,10 @@ public class Main {
                         Item healthPotion = new Item("Health Potion", 20);
                         player.setHealth(player.getHealth() + healthPotion.getHealingPower());
                         System.out.println("You used a " + healthPotion.getName() + ". " + healthPotion.Info());
+                        break;
+                    case 0:
+                        System.out.println("Exiting game...");
+                        System.exit(0);
                         break;
                     default:
                         System.out.println("Invalid choice. Please choose again.");
