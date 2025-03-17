@@ -6,7 +6,7 @@ class World {
 
     public World() {
         this.gameName = "Cairn RPG";
-        this.publisher = "AJ Chabin, ...";
+        this.publisher = "AJ Chabin, Samuel Chapin";
     }
 
     public String getGameName() {
@@ -45,7 +45,7 @@ class Character {
     }
 
     public String Info() {
-        return String.format("%s: %.2f HP, %.2f AP.", name, health, attackPower);    }
+        return String.format("%s: %.1f HP, %.1f AP.", name, health, attackPower);    }
 
     public String getName() {
         return name;
