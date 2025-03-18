@@ -40,12 +40,20 @@ public class World {
         return weapons;
     }
 
+    public Weapon returnWeapon(int index) {
+        return weapons.get(index);
+    }
+
     public Weapon randomWeapon() {
         return weapons.get((int)(Math.random() * weapons.size()));
     }
 
     public ArrayList<HealingItem> getHealingItems() {
         return healingItems;
+    }
+
+    public HealingItem returnHealingItem(int index) {
+        return healingItems.get(index);
     }
 
     public HealingItem randomHealingItem() {

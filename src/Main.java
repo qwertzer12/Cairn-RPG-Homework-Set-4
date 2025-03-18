@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import Data.*;
-import Data.Character;;
+import Data.Character;
 
 
 public class Main {
