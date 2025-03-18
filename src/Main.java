@@ -1,93 +1,14 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.util.ArrayList;
 
-import Data.World;
+import Data.*;
+import Data.Character;;
 
-class Character {
-    private String name = "temp";
-    private float health = 1f;
-    private float attackPower = 1f;
-    private boolean isAlive = true;
-
-    public Character(String name, float health, float attackPower, boolean isAlive) {
-        this.setName(name);
-        this.setHealth(health);
-        this.setAttackPower(attackPower);
-        this.setAlive(isAlive);
-    }
-
-    public boolean runAway() {
-        Random rand = new Random();
-        return rand.nextBoolean();
-    }
-
-    public String Info() {
-        return String.format("%s: %.1f HP, %.1f AP.", getName(), getHealth(), getAttackPower());    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public float getHealth() {
-        return health;
-    }
-
-    public void setHealth(float health) {
-        this.health = health;
-    }
-
-    public float getAttackPower() {
-        return attackPower;
-    }
-
-    public void setAttackPower(float attackPower) {
-        this.attackPower = attackPower;
-    }
-
-    public boolean isAlive() {
-        return isAlive;
-    }
-
-    public void setAlive(boolean alive) {
-        isAlive = alive;
-    }
-}
-
-class Item{
-    private String name;
-    private int healingPower;
-
-    public Item(String name, int healingPower) {
-        this.setName(name);
-        this.setHealingPower(healingPower);
-    }
-
-    public String Info() {
-        return String.format("%s: Heals %d HP.", getName(), getHealingPower());
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getHealingPower() {
-        return healingPower;
-    }
-
-    public void setHealingPower(int healingPower) {
-        this.healingPower = healingPower;
-    }
-}
 
 public class Main {
+    static int choice = -1;
+    static boolean cValid = false;
     public static void main(String[] args) {
         World world = new World();
         System.out.printf("%s: a game created by %s%n", world.getGameName(), world.getPublisher());
@@ -102,7 +23,45 @@ public class Main {
             }
         }
 
-        Character player = new Character(playerName, 100f, 10f, true); // Change to class Hero
+        choice = -1;
+        cValid = false;
+        while (!cValid) {
+            try {
+                System.out.println("What is Your Class?");
+                System.out.println("1. Warrior");
+                System.out.println("2. Knight");
+                System.out.println("3. Rogue");
+
+                choice = Integer.parseInt(scanner.nextLine());
+                if (choice < 1 || choice > 3) {
+                    System.out.println("Please input a valid class. Try Again.");
+                    choice = -1;
+                    continue;
+                }
+                cValid = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Please input an integer. Try Again.");
+            }
+        }
+        float health = 0;
+        float attackPower = 0;
+
+        switch (choice) {
+            case 1:
+                health = 120f;
+                attackPower = 15f;
+                break;
+            case 2:
+                health = 150f;
+                attackPower = 10f;
+                break;
+            case 3:
+                health = 100f;
+                attackPower = 20f;
+                break;
+        }
+
+        Player player = new Player(playerName, health, attackPower, true); // Change to class Hero
         System.out.println("Welcome " + player.getName() + "!");
 
 
@@ -112,17 +71,18 @@ public class Main {
 
             boolean fighting = true;
             while (fighting) {
-                System.out.println("Your turn! Choose an action:");
-                System.out.println("1. Attack");
-                System.out.println("2. Run Away");
-                System.out.println("3. Check Info");
-                System.out.println("4. Heal");
-                System.out.println("0. Exit Game");
 
-                int choice = -1;
-                boolean cValid = false;
+                choice = -1;
+                cValid = false;
                 while (!cValid) {
                     try {
+                        System.out.println("Your turn! Choose an action:");
+                        System.out.println("1. Attack");
+                        System.out.println("2. Run Away");
+                        System.out.println("3. Check Info");
+                        System.out.println("4. Heal");
+                        System.out.println("0. Exit Game");
+
                         choice = Integer.parseInt(scanner.nextLine());
                         cValid = true;
                     } catch (NumberFormatException e) {
@@ -134,33 +94,32 @@ public class Main {
                     case 1:
                         System.out.println("You attack the enemy!");
                         // Implement attack logic here
+                        System.out.println();
                         break;
                     case 2:
                         if (player.runAway()) {
-                            System.out.println("You successfully ran away!");
+                            System.out.println("You successfully ran away!%n");
                             fighting = false;
                         } else {
-                            System.out.println("You couldn't escape!");
+                            System.out.println("You couldn't escape!%n");
                         }
                         break;
                     case 3:
                         System.out.println(player.Info());
                         break;
                     case 4:
-                        Item healthPotion = new Item("Health Potion", 20);
-                        player.setHealth(player.getHealth() + healthPotion.getHealingPower());
-                        System.out.println("You used a " + healthPotion.getName() + ". " + healthPotion.Info());
+                        //fixme
                         break;
                     case 0:
                         System.out.println("Exiting game...");
                         System.exit(0);
                         break;
                     default:
-                        System.out.println("Invalid choice. Please choose again.");
+                        System.out.println("Invalid choice. Please choose again.%n");
                 }
 
                 if (enemy.getHealth() <= 0) {
-                    System.out.println("You defeated the " + enemy.getName() + "!");
+                    System.out.println("You defeated the " + enemy.getName() + "!%n");
                     fighting = false;
                 }
 

@@ -1,12 +1,13 @@
 package Data;
 
 public class World {
-    String gameName;
-    String publisher;
+    private String gameName;
+    private String publisher;
+
 
     public World() {
-        this.gameName = "Cairn RPG";
-        this.publisher = "AJ Chabin, Samuel Chapin";
+        this.setGameName("Cairn RPG");
+        this.setPublisher("AJ Chabin, Samuel Chapin");
     }
 
     public String getGameName() {
@@ -25,3 +26,4 @@ public class World {
         this.publisher = publisher;
     }
 }
+
