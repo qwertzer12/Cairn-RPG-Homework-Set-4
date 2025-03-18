@@ -4,16 +4,16 @@ import java.util.Scanner;
 import Data.World;
 
 class Character {
-    String name = "temp";
-    float health = 1f;
-    float attackPower = 1f;
-    boolean isAlive = true;
+    private String name = "temp";
+    private float health = 1f;
+    private float attackPower = 1f;
+    private boolean isAlive = true;
 
     public Character(String name, float health, float attackPower, boolean isAlive) {
-        this.name = name;
-        this.health = health;
-        this.attackPower = attackPower;
-        this.isAlive = isAlive;
+        this.setName(name);
+        this.setHealth(health);
+        this.setAttackPower(attackPower);
+        this.setAlive(isAlive);
     }
 
     public boolean runAway() {
@@ -22,7 +22,7 @@ class Character {
     }
 
     public String Info() {
-        return String.format("%s: %.1f HP, %.1f AP.", name, health, attackPower);    }
+        return String.format("%s: %.1f HP, %.1f AP.", getName(), getHealth(), getAttackPower());    }
 
     public String getName() {
         return name;
@@ -58,16 +58,16 @@ class Character {
 }
 
 class Item{
-    String name;
-    int healingPower;
+    private String name;
+    private int healingPower;
 
     public Item(String name, int healingPower) {
-        this.name = name;
-        this.healingPower = healingPower;
+        this.setName(name);
+        this.setHealingPower(healingPower);
     }
 
     public String Info() {
-        return String.format("%s: Heals %d HP.", name, healingPower);
+        return String.format("%s: Heals %d HP.", getName(), getHealingPower());
     }
 
     public String getName() {
