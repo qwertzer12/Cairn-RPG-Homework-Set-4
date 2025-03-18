@@ -1,9 +1,9 @@
-import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 import Data.*;
 
+@SuppressWarnings("BusyWait")
 public class Main {
     static int choice = -1;
     static boolean cValid = false;
@@ -183,6 +183,9 @@ public class Main {
                                 if (healingItemChoice >= 0 && healingItemChoice < player.getHealingItems().size()) {
                                     HealingItem healingItem = player.getHealingItems().get(healingItemChoice);
                                     player.setHealth(player.getHealth() + healingItem.getHealingPower());
+                                    if (player.getHealth() > player.getMaxHealth()) {
+                                        player.setHealth(player.getMaxHealth());
+                                    }
                                     player.removeHealingItems(healingItem, 1);
                                     System.out.printf("Used %s. Your health is now %d.%n", healingItem.getItemName(), player.getHealth());
                                 } else {

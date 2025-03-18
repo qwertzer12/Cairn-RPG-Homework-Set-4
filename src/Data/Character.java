@@ -6,6 +6,7 @@ import java.util.Random;
 public class Character {
     private String name = "temp";
     private int health = 1;
+    private int maxHealth = 1;
     private int attackPower = 1;
     private boolean isAlive = true;
     private ArrayList<Weapon> weapons = new ArrayList<>();
@@ -16,6 +17,7 @@ public class Character {
     public Character(String name, int health, int attackPower, boolean isAlive, Weapon equippedWeapon) {
         this.setName(name);
         this.setHealth(health);
+        this.setMaxHealth(health);
         this.setAttackPower(attackPower);
         this.setAlive(isAlive);
         this.setEquippedWeapon(equippedWeapon);
@@ -135,4 +137,12 @@ public class Character {
     public int damage(){
         return equippedWeapon.getDamage()+getAttackPower();
     };
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
 }
