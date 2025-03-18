@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import Data.*;
 
-
 public class Main {
     static int choice = -1;
     static boolean cValid = false;
@@ -67,9 +66,7 @@ public class Main {
         Player player = new Player(playerName, health, attackPower, true, startingWeapon); // Change to class Hero
         System.out.println("Welcome " + player.getName() + "!");
 
-
-        while (player.isAlive()){
-
+        while (player.isAlive()) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -81,7 +78,6 @@ public class Main {
 
             boolean fighting = true;
             while (fighting) {
-
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -121,7 +117,7 @@ public class Main {
                             throw new RuntimeException(e);
                         }
 
-                        enemy.setHealth(enemy.getHealth()-player.damage());
+                        enemy.setHealth(enemy.getHealth() - player.damage());
                         try {
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
@@ -165,16 +161,36 @@ public class Main {
                         switch (choice) {
                             case 1:
                                 for (int i = 0; i < player.getWeapons().size(); i++) {
-                                    //fix this
-                                    break;
+                                    Weapon weapon = player.getWeapons().get(i);
+                                    System.out.printf("%d. %s (Damage: %d)%n", i + 1, weapon.getItemName(), weapon.getDamage());
                                 }
+                                System.out.println("Choose a weapon to equip:");
+                                int weaponChoice = Integer.parseInt(scanner.nextLine()) - 1;
+                                if (weaponChoice >= 0 && weaponChoice < player.getWeapons().size()) {
+                                    player.setEquippedWeapon(player.getWeapons().get(weaponChoice));
+                                    System.out.printf("Equipped %s.%n", player.getEquippedWeapon().getItemName());
+                                } else {
+                                    System.out.println("Invalid choice. Please choose again.");
+                                }
+                                break;
                             case 2:
                                 for (int i = 0; i < player.getHealingItems().size(); i++) {
-                                    //fix this
-                                    break;
+                                    HealingItem healingItem = player.getHealingItems().get(i);
+                                    System.out.printf("%d. %s (Amount: %d)%n", i + 1, healingItem.getItemName(), healingItem.getAmount());
                                 }
+                                System.out.println("Choose a healing item to use:");
+                                int healingItemChoice = Integer.parseInt(scanner.nextLine()) - 1;
+                                if (healingItemChoice >= 0 && healingItemChoice < player.getHealingItems().size()) {
+                                    HealingItem healingItem = player.getHealingItems().get(healingItemChoice);
+                                    player.setHealth(player.getHealth() + healingItem.getHealingPower());
+                                    player.removeHealingItems(healingItem, 1);
+                                    System.out.printf("Used %s. Your health is now %d.%n", healingItem.getItemName(), player.getHealth());
+                                } else {
+                                    System.out.println("Invalid choice. Please choose again.");
+                                }
+                                break;
                             default:
-                                System.out.println("Invalid choice. Please choose again.%n");
+                                System.out.println("Invalid choice. Please choose again.");
                                 break;
                         }
                         break;
@@ -183,7 +199,7 @@ public class Main {
                         System.exit(0);
                         break;
                     default:
-                        System.out.println("Invalid choice. Please choose again.%n");
+                        System.out.println("Invalid choice. Please choose again.");
                 }
 
                 if (enemy.getHealth() <= 0) {
@@ -194,7 +210,7 @@ public class Main {
                         System.out.printf("- %s%n", item.getItemName());
                     }
 
-                    player.addWeapon((Weapon) loot.get(0),1);
+                    player.addWeapon((Weapon) loot.get(0), 1);
                     player.addHealingItems((HealingItem) loot.get(1), 3);
 
                     fighting = false;
@@ -207,9 +223,5 @@ public class Main {
                 }
             }
         }
-
-
-
-
     }
 }
