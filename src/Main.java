@@ -3,7 +3,6 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import Data.*;
-import Data.Character;
 
 
 public class Main {
@@ -77,7 +76,7 @@ public class Main {
                 throw new RuntimeException(e);
             }
 
-            Character enemy = new Character("Goblin", 50, 5, true, world.returnWeapon(6)); // change to class Enemy
+            Enemy enemy = new Enemy("Goblin", 50, 5, true, world.returnWeapon(6)); // change to class Enemy
             System.out.printf("A wild %s appears!%n", enemy.getName());
 
             boolean fighting = true;
@@ -102,7 +101,7 @@ public class Main {
                         System.out.println("1. Attack");
                         System.out.println("2. Run Away");
                         System.out.println("3. Check Info");
-                        System.out.println("4. Heal");
+                        System.out.println("4. Use Item");
                         System.out.println("0. Exit Game");
 
                         choice = Integer.parseInt(scanner.nextLine());
@@ -144,7 +143,40 @@ public class Main {
                         System.out.println(player.Info());
                         break;
                     case 4:
-                        //fixme
+                        choice = -1;
+                        cValid = false;
+                        while (!cValid) {
+                            try {
+                                System.out.printf("Use:%n1. Weapons%n2. Healing Items%n");
+
+                                try {
+                                    Thread.sleep(500);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+                                choice = Integer.parseInt(scanner.nextLine());
+                                cValid = true;
+                            } catch (NumberFormatException e) {
+                                System.out.println("Please input an integer. Try Again.");
+                            }
+                        }
+
+                        switch (choice) {
+                            case 1:
+                                for (int i = 0; i < player.getWeapons().size(); i++) {
+                                    //fix this
+                                    break;
+                                }
+                            case 2:
+                                for (int i = 0; i < player.getHealingItems().size(); i++) {
+                                    //fix this
+                                    break;
+                                }
+                            default:
+                                System.out.println("Invalid choice. Please choose again.%n");
+                                break;
+                        }
                         break;
                     case 0:
                         System.out.println("Exiting game...");
@@ -156,6 +188,15 @@ public class Main {
 
                 if (enemy.getHealth() <= 0) {
                     System.out.printf("You defeated the %s!%n%n", enemy.getName());
+                    ArrayList<Item> loot = enemy.getLoot();
+                    System.out.println("You found the following items:");
+                    for (Item item : loot) {
+                        System.out.printf("- %s%n", item.getItemName());
+                    }
+
+                    player.addWeapon((Weapon) loot.get(0),1);
+                    player.addHealingItems((HealingItem) loot.get(1), 3);
+
                     fighting = false;
                 }
 
