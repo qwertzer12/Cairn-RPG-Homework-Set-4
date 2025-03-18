@@ -43,40 +43,62 @@ public class Main {
                 System.out.println("Please input an integer. Try Again.");
             }
         }
-        float health = 0;
-        float attackPower = 0;
+        int health = 0;
+        int attackPower = 0;
+        Weapon startingWeapon = null;
 
         switch (choice) {
             case 1:
-                health = 120f;
-                attackPower = 15f;
+                health = 120;
+                attackPower = 15;
+                startingWeapon = world.returnWeapon(3);
                 break;
             case 2:
-                health = 150f;
-                attackPower = 10f;
+                health = 150;
+                attackPower = 10;
+                startingWeapon = world.returnWeapon(0);
                 break;
             case 3:
-                health = 100f;
-                attackPower = 20f;
+                health = 100;
+                attackPower = 20;
+                startingWeapon = world.returnWeapon(6);
                 break;
         }
 
-        Player player = new Player(playerName, health, attackPower, true); // Change to class Hero
+        Player player = new Player(playerName, health, attackPower, true, startingWeapon); // Change to class Hero
         System.out.println("Welcome " + player.getName() + "!");
 
 
         while (player.isAlive()){
-            Character enemy = new Character("Goblin", 50f, 5f, true); // change to class Enemy
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            Character enemy = new Character("Goblin", 50, 5, true, world.returnWeapon(6)); // change to class Enemy
             System.out.printf("A wild %s appears!%n", enemy.getName());
 
             boolean fighting = true;
             while (fighting) {
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
                 choice = -1;
                 cValid = false;
                 while (!cValid) {
                     try {
                         System.out.println("Your turn! Choose an action:");
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                         System.out.println("1. Attack");
                         System.out.println("2. Run Away");
                         System.out.println("3. Check Info");
@@ -92,16 +114,30 @@ public class Main {
 
                 switch (choice) {
                     case 1:
-                        System.out.println("You attack the enemy!");
-                        // Implement attack logic here
+                        System.out.printf("You attack the enemy!%n%n");
+
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        enemy.setHealth(enemy.getHealth()-player.damage());
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        System.out.printf("The %s now has %d Health!%n", enemy.getName(), enemy.getHealth());
                         System.out.println();
                         break;
                     case 2:
                         if (player.runAway()) {
-                            System.out.println("You successfully ran away!%n");
+                            System.out.printf("You successfully ran away!%n%n");
                             fighting = false;
                         } else {
-                            System.out.println("You couldn't escape!%n");
+                            System.out.printf("You couldn't escape!%n%n");
                         }
                         break;
                     case 3:
@@ -119,7 +155,7 @@ public class Main {
                 }
 
                 if (enemy.getHealth() <= 0) {
-                    System.out.println("You defeated the " + enemy.getName() + "!%n");
+                    System.out.printf("You defeated the %s!%n%n", enemy.getName());
                     fighting = false;
                 }
 

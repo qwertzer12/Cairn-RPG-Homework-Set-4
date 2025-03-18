@@ -5,18 +5,21 @@ import java.util.Random;
 
 public class Character {
     private String name = "temp";
-    private float health = 1f;
-    private float attackPower = 1f;
+    private int health = 1;
+    private int attackPower = 1;
     private boolean isAlive = true;
     private ArrayList<Weapon> weapons = new ArrayList<>();
     private ArrayList<HealingItem> healingItems = new ArrayList<>();
+    private Weapon equippedWeapon;
 
 
-    public Character(String name, float health, float attackPower, boolean isAlive) {
+    public Character(String name, int health, int attackPower, boolean isAlive, Weapon equippedWeapon) {
         this.setName(name);
         this.setHealth(health);
         this.setAttackPower(attackPower);
         this.setAlive(isAlive);
+        this.setEquippedWeapon(equippedWeapon);
+        weapons.add(equippedWeapon);
     }
 
     public boolean runAway() {
@@ -25,7 +28,7 @@ public class Character {
     }
 
     public String Info() {
-        return String.format("%s: %.1f HP, %.1f AP.", getName(), getHealth(), getAttackPower());    }
+        return String.format("%s: %d HP, %d AP. Equipped Weapon: %s.", getName(), getHealth(), getAttackPower(), getEquippedWeapon().getItemName());    }
 
     public String getName() {
         return name;
@@ -35,19 +38,19 @@ public class Character {
         this.name = name;
     }
 
-    public float getHealth() {
+    public int getHealth() {
         return health;
     }
 
-    public void setHealth(float health) {
+    public void setHealth(int health) {
         this.health = health;
     }
 
-    public float getAttackPower() {
+    public int getAttackPower() {
         return attackPower;
     }
 
-    public void setAttackPower(float attackPower) {
+    public void setAttackPower(int attackPower) {
         this.attackPower = attackPower;
     }
 
@@ -120,4 +123,16 @@ public class Character {
             }
         }
     }
+
+    public Weapon getEquippedWeapon() {
+        return equippedWeapon;
+    }
+
+    public void setEquippedWeapon(Weapon equippedWeapon) {
+        this.equippedWeapon = equippedWeapon;
+    }
+
+    public int damage(){
+        return equippedWeapon.getDamage()+getAttackPower();
+    };
 }
