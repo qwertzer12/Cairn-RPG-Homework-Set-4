@@ -97,6 +97,8 @@ class Hero extends Character {
         Random boulder = new Random();
         if (boulder.nextBoolean()) {
             System.out.printf("Critical Hit, You did %f.1 to %s!", getAttackPower(), enemy.getName());
+        } else {
+            System.out.printf("You did %f.1 to %s!", getAttackPower(), enemy.getName());
         }
     }
 
@@ -104,7 +106,7 @@ class Hero extends Character {
         float currentHealth = getHealth();
         float healing = inventory[i].getHealingPower();
         setHealth(currentHealth += healing);
-        System.out.printf("%s healed %s by %f.1", inventory[i].getName(), getName(), inventory[i].getHealingPower());
+        System.out.printf("%s healed %s by %d", inventory[i].getName(), getName(), inventory[i].getHealingPower());
     }
 
     public void levelUp() {
@@ -113,7 +115,7 @@ class Hero extends Character {
             float cHealth = getHealth();
             float cAttackPower = getAttackPower();
             int cExperience = getExperience();
-            setLevel(cLevel++);
+            setLevel(cLevel+=1);
             setHealth(cHealth += cHealth / 10);
             setAttackPower(cAttackPower += cAttackPower / 10);
             setExperience(cExperience -= 100);
@@ -190,7 +192,7 @@ class Enemy extends Character {
         super(n, h, ap, ia);
     }
 
-    public void fight(Enemy enemy) {
+    public void fight(Hero enemy) {
         Random boulder = new Random();
         if (boulder.nextBoolean()) {
             System.out.printf("Magic Attack, You did %f.1 to %s!", getMagicPower(), enemy.getName());
