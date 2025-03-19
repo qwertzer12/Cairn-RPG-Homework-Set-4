@@ -195,7 +195,10 @@ class Enemy extends Character {
     public void fight(Hero enemy) {
         Random boulder = new Random();
         if (boulder.nextBoolean()) {
-            System.out.printf("Magic Attack, You did %f.1 to %s!", getMagicPower(), enemy.getName());
+            System.out.printf("Magic Attack, You did %d to %s!", getMagicPower(), enemy.getName());
+        }
+        else{
+            System.out.printf("You did %f.1 to %s!", getAttackPower(), enemy.getName());
         }
     }
 
@@ -214,9 +217,14 @@ class Boss extends Enemy {
     public void fight(Hero Enemy) {
         Random boulder = new Random();
         if (boulder.nextBoolean()) {
-            System.out.printf("Magic Attack, You did %f.1 to %s!", getMagicPower(), getName());
+            System.out.printf("Magic Attack, You did %d to %s!", getMagicPower(), getName());
+        }else{
+            System.out.printf("You did %f.1 to %s!", getAttackPower(), getName());
         }
+
+    }
 }
+
 class Item {
     private String name;
     private int healingPower;
