@@ -206,14 +206,17 @@ class Enemy extends Character {
     public void setMagicPower(int magicPower) {
         this.magicPower = magicPower;
     }
-
-    class Boss extends Character {
-        public Boss(String name, float health, float attackPower, boolean isAlive) {
-            super(name, health, attackPower, isAlive);
-        }
-    }
 }
-
+class Boss extends Enemy {
+    public Boss(String name, int health, int attackPower, boolean isAlive) {
+        super(name, health, attackPower, isAlive);
+    }
+    public void fight(Hero Enemy) {
+        Random boulder = new Random();
+        if (boulder.nextBoolean()) {
+            System.out.printf("Magic Attack, You did %f.1 to %s!", getMagicPower(), getName());
+        }
+}
 class Item {
     private String name;
     private int healingPower;
