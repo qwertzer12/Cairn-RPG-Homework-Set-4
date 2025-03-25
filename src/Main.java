@@ -33,7 +33,7 @@ class Character {
     private float attackPower = 1f;
     private boolean isAlive = true;
 
-    public Character(String name, float health, float attackPower, boolean isAlive) {
+    public Character(String name, float health, float attackPower) {
         this.setName(name);
         this.setHealth(health);
         this.setAttackPower(attackPower);
@@ -89,7 +89,7 @@ class Hero extends Character {
     private Item[] inventory = new Item[5];
 
     public Hero(String name, float health, float attackPower, boolean isAlive) {
-        super(name, health, attackPower, isAlive);
+        super(name, health, attackPower);
         inventory[0] = new Item("Potion", 20);
     }
 
@@ -185,11 +185,11 @@ class Enemy extends Character {
     private int magicPower = 30;
 
     public Enemy(float health, float attackPower, boolean isAlive) {
-        super("goblin", health, attackPower, isAlive);
+        super("goblin", health, attackPower);
     }
 
     public Enemy(String n, int h, int ap, boolean ia) {
-        super(n, h, ap, ia);
+        super(n, h, ap);
     }
 
     public void fight(Hero enemy) {
