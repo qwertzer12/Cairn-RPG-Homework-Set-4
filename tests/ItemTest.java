@@ -1,20 +1,14 @@
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ItemTest {
-    private Item item;
+    Item item = new Item("Potion", 50);
 
-    @BeforeEach
-    void setUp() {
-        item = new Item("Potion", 50);
-    }
 
     @Test
     void info() {
-        String expected = "Item{name='Potion', healingPower=50}";
-        assertEquals(expected, item.Info());
+        assertEquals("Potion: Heals 50 HP.", item.Info());
     }
 
     @Test
